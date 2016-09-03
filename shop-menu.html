@@ -1,4 +1,5 @@
 <link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../iron-icons/iron-icons.html">
 
 <!--
 `shop-menu`
@@ -13,8 +14,48 @@
       :host {
         display: block;
       }
+      .shop_ul{
+        
+      }
+
+      .shop_li{
+        display : inline-block;
+        margin-left: 10px;
+      }
+      .shop_li:first-child{
+        margin-left: 0;
+      }
+      .shop_a{
+        text-decoration: none;
+        padding: 5px 10px;
+        color: #2b1717;
+        border-radius: 3px;
+        display: inline-block;
+      }
+      .shop_a:hover{
+        opacity:.7;
+      }
+      .shop_icon{
+        width : 20px;
+        margin-right: 10px;
+      }
     </style>
-    <h2>Hello [[prop1]]</h2>
+    <ul  class="shop_ul">
+      <template is="dom-repeat" items="{{data}}">
+
+        <li class="shop_li">
+          
+          <a class="shop_a" href="{{ item.url }}">
+            <iron-icon class="shop_icon" icon="{{ item.icon}}"></iron-icon>
+            {{ item.nombre}}
+            <template is="dom-if" if={{item.child}} >
+              <iron-icon class="shop_icon" icon="icons:arrow-drop-down"></iron-icon>
+            </template>
+          </a>
+      </li>
+      </template>
+
+    </ul>
   </template>
 
   <script>
@@ -27,7 +68,37 @@
           type: String,
           value: 'shop-menu',
         },
+        data : {
+          type : Object,
+          value :  [
+            { 
+              nombre : "shopping car" , 
+              url : "/shoppin",
+              icon : "icons:shopping-cart"
+            },
+            { 
+              nombre : "usuario" , 
+              url : "/usuario",
+              icon : "icons:perm-identity",
+              child : [{
+                  nombre : "usuario" , 
+                  url : "/usuario",
+                },
+                {
+                  nombre : "usuario" , 
+                  url : "/usuario",
+                }]
+            }
+          ]
+        }
       },
+
+      ready : function(e){
+          console.log(this.data);
+      }
+
+ 
+
 
     });
   </script>
